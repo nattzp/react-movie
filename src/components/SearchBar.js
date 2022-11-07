@@ -18,7 +18,7 @@ function SearchBar({placeholder, data}) {
     return(
         <>
         <div className='topbar'>
-            <div class ='searchbox'>
+            <div className ='searchbox'>
                 <input 
                     type="text" 
                     placeholder={placeholder}
@@ -26,7 +26,6 @@ function SearchBar({placeholder, data}) {
                     onChange={searchFilter}
                 />
                 <div className='searchIcon'>
-                    
                     <AiOutlineSearch style={iconStyle} size={'20px'}/>
                 </div>
 

@@ -6,12 +6,42 @@
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
+    
 }
 
 .home, .discover {
-    display: flex;
-    height: 90vh;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
+    color: white;
+    margin-top: 80px;
+    height: 100%;
+    width: 100% - 200px;
+    margin-left: 200px; 
+}
+
+#test {
+    margin-bottom: 50px;
+}
+
+
+.home .movie-showcase{
+    margin-top: 80px;
+    height: 100%;
+    padding: 20px;
+    width: 100%;
+}
+
+.home .headline{
+    margin-bottom: 50px;
+}
+
+.home .movie-list{
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+
+.home .movie-image{
+    width: 100%;
+    border-radius: 5px;
 }
