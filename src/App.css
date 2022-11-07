@@ -9,39 +9,47 @@
     
 }
 
+
 .home, .discover {
     color: white;
     margin-top: 80px;
     height: 100%;
-    width: 100% - 200px;
+    width: calc(100% - 200px);
     margin-left: 200px; 
 }
 
-#test {
-    margin-bottom: 50px;
+.movie-section {
+    
 }
 
 
-.home .movie-showcase{
-    margin-top: 80px;
+.movie-showcase{
     height: 100%;
     padding: 20px;
     width: 100%;
+
 }
 
-.home .headline{
-    margin-bottom: 50px;
+.headline{
+    margin-bottom: 20px;
+    font-size: 3.5vh;
 }
 
-.home .movie-list{
+.movie-list{
     width: 100%;
     display: grid;
+    height: 100%;
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-
-.home .movie-image{
-    width: 100%;
-    border-radius: 5px;
+.trending-list{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
 }
+
+
+
+

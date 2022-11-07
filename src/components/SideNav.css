@@ -51,6 +51,7 @@
 
 li.nav-text > a.active{
     color: white;
+    font-weight: bold;
     
 }
 

@@ -14,6 +14,20 @@ function Home() {
 
   const [moviesNowPlaying, setmoviesNowPlaying] = useState([])
   const [moviesTopRated, setmoviesTopRated] = useState([])
+  const [moviesTrending, setmoviesTrending] = useState([])
+
+
+
+  const trending = async () => {
+    const fetchedTrending = await axios.get(`${apiUrl}/trending/${'movie'}/${'week'}`, {
+      params: {
+        api_key: my_api_key
+      }
+    })
+    setmoviesTrending(fetchedTrending.data.results)
+   
+  }
+  console.log(moviesTrending)
 
   const nowPlaying = async () => {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
@@ -22,6 +36,7 @@ function Home() {
       }
     })
     setmoviesNowPlaying(fetchedNowPlaying.data.results)
+    
   }
 
   const topRated = async () => {
@@ -36,13 +51,21 @@ function Home() {
   useEffect(() => {
     nowPlaying()
     topRated()
+    trending()
 
   }, [])
 
-
+  const rendermoviesTrending = () => (
+    moviesTrending.slice(0,2).map(movie => (
+      <MovieCard isTrending = {true}
+        key={movie.id}
+        movie={movie}
+      />
+    ))
+  )
 
   const rendermoviesNowPlaying = () => (
-    moviesNowPlaying.map(movie => (
+    moviesNowPlaying.slice(0,5).map(movie => (
       <MovieCard
         key={movie.id}
         movie={movie}
@@ -51,8 +74,8 @@ function Home() {
   )
 
   const rendermoviesTopRated = () => (
-    moviesTopRated.map(movie => (
-      <MovieCard
+    moviesTopRated.slice(0,5).map(movie => (
+      <MovieCard 
         key={movie.id}
         movie={movie}
       />
@@ -66,6 +89,14 @@ function Home() {
     <div className='home'>
 
     <div className='movie-section'>
+
+      <div className='movie-showcase'>
+        <h1 className='headline'>Trending</h1>
+        <div className='trending-list'>
+          {rendermoviesTrending()}
+        </div>
+      </div>
+
       <div className='movie-showcase'>
         <h1 className='headline'>Now playing</h1>
         <div className='movie-list'>
@@ -75,14 +106,13 @@ function Home() {
 
 
       <div className='movie-showcase'>
-        <h1 id='test' classNamme='headline'>Top Rated</h1>
+        <h1 className='headline'>Top Rated</h1>
         <div className='movie-list'>
           {rendermoviesTopRated()}
         </div>
       </div>
 
       </div>
-
     </div>
   )
 }
