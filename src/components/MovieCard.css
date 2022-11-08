@@ -23,10 +23,14 @@
     background: none;
 }
 
-.movie-year{
+.movie-text{
     font-size: 2vh;
+    background: none;
 }
 
+#movie-rating{
+    font-style: italic;
+}
 
 .movie-card {
 	position: relative;

@@ -35,7 +35,7 @@ const MovieCard = ({ movie, isTrending }) => {
  
        
        border: !isHovering && isTrending && 'none',
-       height:  isHovering && isTrending && '100%',
+       
        height:  (!isHovering &&isTrending) && '5vw' ,  
        transition: isHovering && isTrending && '.5s ' ,
        
@@ -69,7 +69,8 @@ const MovieCard = ({ movie, isTrending }) => {
             {(isHovering || isTrending) && 
                 <div style ={trendingOverlay} className ='overlay'>
                 <h5 className='movie-title'>{movie.title}</h5> 
-                <p className='movie-year'>{getYear()}</p>
+                {isTrending && isHovering && <p id='movie-rating'className='movie-text'>IMDB rating: {movie.vote_average}</p>}
+                <p className='movie-text'>{getYear()}</p>
                 </div> 
                 
 
