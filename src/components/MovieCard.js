@@ -15,72 +15,38 @@ const MovieCard = ({ movie, isTrending }) => {
         height: isTrending ? '100%' : '',
         objectFit: isTrending ? 'cover' : '',
         objectPosition : isTrending ? 'center' : '',
-
-       
-
     }
 
     const movieCard
     = {
-       height: isTrending ? '25vw' : '',
-       
-
-       
+      
    }
 
    const trendingOverlay
     = {
-       
        width: (isTrending) && '100%' ,
-       
        left: isTrending && '0' ,
-       
        background: isTrending && 'rgba(0,0,0,0.5)' ,
-       
        textAlign: isTrending && 'left' ,
        padding: isTrending && '15px' ,
-       borderRadius: isTrending && '0' ,
-       borderBottomLeftRadius: isTrending && '5px',
-       borderBottomRightRadius: isTrending && '5px',
+       borderTopLeftRadius: !isHovering && isTrending && '0',
+       borderTopRightRadius: !isHovering && isTrending && '0',
        justifyContent: isTrending && 'center',
-
-       borderRadius: isHovering && isTrending && '5px' ,
-       borderRadius: !isHovering && isTrending && '0' ,
-
-       border: isHovering && isTrending && '1px solid white',
-       border: !isHovering && isTrending && 'none',
-
-       marginTop: (isHovering && isTrending) && '0',
-       marginTop: (!isHovering && isTrending) && '20vw',
-
-       height:  isHovering && isTrending && '100%',
-       height:  (!isHovering &&isTrending) && '5vw' ,
-       
-      
-       transition: isHovering && isTrending && '.5s ' ,
-
-
  
-
-
-
        
-
-
-
-    //    position: absolute;
-   
-
-    //    display: flex;
-    //    flex-direction: column;
-    //    justify-content: center;
-    //    padding: 5px;
-
-    //    border-radius: 5px;
+       border: !isHovering && isTrending && 'none',
+       height:  isHovering && isTrending && '100%',
+       height:  (!isHovering &&isTrending) && '5vw' ,  
+       transition: isHovering && isTrending && '.5s ' ,
        
    }
 
-
+    function path_ending(){
+        if (isTrending){
+            return `${movie.backdrop_path}`
+        }
+        else return `${movie.poster_path}`
+    }
 
     const handleHover = () =>{
         setIsHovering(true)
@@ -96,11 +62,10 @@ const MovieCard = ({ movie, isTrending }) => {
 
     }
 
-    const img_path = 'https://image.tmdb.org/t/p/w500'
+    const img_path = 'https://image.tmdb.org/t/p/original'
     return (
         <div style={movieCard} onMouseOver={handleHover} onMouseLeave={handleNotHover} className='movie-card'>
-            {movie.poster_path ? <img style = {imgStyle} className={'movie-image'} src={`${img_path}${movie.poster_path}`} alt=''/>
-            : null}
+        <img style = {imgStyle} className={'movie-image'} src={`${img_path}${path_ending()}`} alt=''/>
             {(isHovering || isTrending) && 
                 <div style ={trendingOverlay} className ='overlay'>
                 <h5 className='movie-title'>{movie.title}</h5> 

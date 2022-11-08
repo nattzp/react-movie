@@ -3,7 +3,7 @@
     font-size: 2.5vh;
     text-align: center;
     position: absolute;
-	top: 0;
+	bottom: 0;
 	left: 0;
     margin: 0;
 	width: 100%;
@@ -16,6 +16,7 @@
     padding: 5px;
     border: 1px solid white;
     border-radius: 5px;
+  
 }
 
 .movie-title, .movie-year{
