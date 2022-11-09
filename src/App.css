@@ -1,13 +1,14 @@
 /*@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 */
 * {
-    background-color: rgb(22, 22, 22);
+    background-color: #1A1A1A;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    
 }
+
+
 
 
 .home, .discover {
@@ -16,22 +17,32 @@
     height: 100%;
     width: calc(100% - 200px);
     margin-left: 200px; 
+    padding: 20px;
     padding-bottom: 30vh;
-
- 
 }
+
+.discover .heading {
+    font-size: 3.5vw;
+}
+
 
 .movie-showcase{
     height: 100%;
-    padding: 20px;
+    padding-bottom: 30px;
     width: 100%;
-
 }
+
+
 
 .headline{
     margin-bottom: 20px;
-    font-size: 3.5vh;
+    font-size: 130%;
+    
 }
+
+
+
+
 
 .movie-list{
     width: 100%;
@@ -41,13 +52,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
-.trending-list{
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
+
+.carousel-item {
+    padding: 5px;
 }
-
-
-
-

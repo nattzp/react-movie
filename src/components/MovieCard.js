@@ -17,27 +17,22 @@ const MovieCard = ({ movie, isTrending }) => {
         objectPosition : isTrending ? 'center' : '',
     }
 
-    const movieCard
-    = {
-      
-   }
+  
 
    const trendingOverlay
     = {
        width: (isTrending) && '100%' ,
        left: isTrending && '0' ,
        background: isTrending && 'rgba(0,0,0,0.5)' ,
-       textAlign: isTrending && 'left' ,
+ 
        padding: isTrending && '15px' ,
        borderTopLeftRadius: !isHovering && isTrending && '0',
        borderTopRightRadius: !isHovering && isTrending && '0',
-       justifyContent: isTrending && 'center',
- 
-       
        border: !isHovering && isTrending && 'none',
-       
-       height:  (!isHovering &&isTrending) && '5vw' ,  
+       height:  (!isHovering &&isTrending) && '8vh' ,  
        transition: isHovering && isTrending && '.5s ' ,
+       alignItems: isTrending && 'start',
+       
        
    }
 
@@ -64,16 +59,14 @@ const MovieCard = ({ movie, isTrending }) => {
 
     const img_path = 'https://image.tmdb.org/t/p/original'
     return (
-        <div style={movieCard} onMouseOver={handleHover} onMouseLeave={handleNotHover} className='movie-card'>
-        <img style = {imgStyle} className={'movie-image'} src={`${img_path}${path_ending()}`} alt=''/>
+        <div onMouseOver={handleHover} onMouseLeave={handleNotHover} className='movie-card'>
+        <img style = {imgStyle} className='movie-image' src={`${img_path}${path_ending()}`} alt=''/>
             {(isHovering || isTrending) && 
                 <div style ={trendingOverlay} className ='overlay'>
                 <h5 className='movie-title'>{movie.title}</h5> 
                 {isTrending && isHovering && <p id='movie-rating'className='movie-text'>IMDB rating: {movie.vote_average}</p>}
                 <p className='movie-text'>{getYear()}</p>
                 </div> 
-                
-
             }
         </div>
     )

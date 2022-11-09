@@ -3,6 +3,8 @@ import axios from 'axios';
 //import moviesNowPlayinghowcase from '../components/moviesNowPlayinghowcase'
 //import SearchBar from '../components/SearchBar'
 import MovieCard from '../components/MovieCard.js'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 
 
@@ -27,7 +29,7 @@ function Home() {
     setmoviesTrending(fetchedTrending.data.results)
    
   }
-  console.log(moviesTrending)
+
 
   const nowPlaying = async () => {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
@@ -56,8 +58,8 @@ function Home() {
   }, [])
 
   const rendermoviesTrending = () => (
-    moviesTrending.slice(0,2).map(movie => (
-      <MovieCard isTrending = {true}
+    moviesTrending.map(movie => (
+      <MovieCard isTrending={true}
         key={movie.id}
         movie={movie}
       />
@@ -65,16 +67,7 @@ function Home() {
   )
 
   const rendermoviesNowPlaying = () => (
-    moviesNowPlaying.slice(0,5).map(movie => (
-      <MovieCard
-        key={movie.id}
-        movie={movie}
-      />
-    ))
-  )
-
-  const rendermoviesTopRated = () => (
-    moviesTopRated.slice(0,5).map(movie => (
+    moviesNowPlaying.map(movie => (
       <MovieCard 
         key={movie.id}
         movie={movie}
@@ -82,6 +75,65 @@ function Home() {
     ))
   )
 
+  const rendermoviesTopRated = () => (
+    moviesTopRated.map(movie => (
+      <MovieCard 
+        key={movie.id}
+        movie={movie}
+      />
+    ))
+  )
+
+
+
+
+  const responsive = {
+
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2
+    }
+  };
+
+  const responsiveTrending = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 2
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 2
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 1
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
+
+  const itemStyle = {
+    padding: '10px' ,
+    width: '5px',
+
+
+  }
 
 
   return (
@@ -92,24 +144,23 @@ function Home() {
 
       <div className='movie-showcase'>
         <h1 className='headline'>Trending</h1>
-        <div className='trending-list'>
-          {rendermoviesTrending()}
-        </div>
+        <Carousel responsive={responsiveTrending} partialVisible={false} infinite={true} itemClass="carousel-item">
+        {rendermoviesTrending()}
+        </Carousel>
       </div>
 
       <div className='movie-showcase'>
         <h1 className='headline'>Now playing</h1>
-        <div className='movie-list'>
-          {rendermoviesNowPlaying()}
-        </div>
+        <Carousel responsive={responsive} partialVisible={false} infinite={true} itemClass="carousel-item">
+        {rendermoviesNowPlaying()}
+        </Carousel>
       </div>
-
 
       <div className='movie-showcase'>
         <h1 className='headline'>Top Rated</h1>
-        <div className='movie-list'>
+        <Carousel responsive={responsive}  partialVisible={false} infinite={true} itemClass="carousel-item">
           {rendermoviesTopRated()}
-        </div>
+        </Carousel>
       </div>
 
       </div>
@@ -118,3 +169,4 @@ function Home() {
 }
 
 export default Home
+
