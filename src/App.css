@@ -22,7 +22,7 @@
 }
 
 .discover .heading {
-    font-size: 3.5vw;
+    font-size: 130%;
 }
 
 
@@ -55,4 +55,10 @@
 
 .carousel-item {
     padding: 5px;
+}
+
+.genre-button-section{
+    padding-top: 25px;
+    padding-bottom: 10px;
+    margin-left: -5px;
 }

@@ -7,9 +7,7 @@ const GenreButton = ({ genre }) => {
 
 
     return (
-        <div className='genre-button-wrapper'>
             <button className='genre-button'>{genre.name}</button>
-        </div>
     )
 }
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import GenreButton from '../components/GenreButton.js'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
 
 
 
@@ -41,9 +44,28 @@ function Discover() {
     ))
   )
 
-  // const renderGenreButtons = () => {
 
-  // }
+
+  const responsive = {
+
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 8
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 7
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 5
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 3
+    }
+  };
 
   return (
 
@@ -51,21 +73,11 @@ function Discover() {
       <h1 className='heading'>Discover</h1>
 
       <div className='genre-button-section'>
-        {renderGenres()}
+      <Carousel responsive={responsive}  partialVisible={false} itemClass="carousel-item">
+      {renderGenres()}
+        </Carousel>
       </div>
-
-    <div className='movie-section'>
-
-      {/* <div className='movie-showcase'>
-        <h1 className='headline'>Now playing</h1>
-        <div className='movie-list'>
-          {rendermoviesNowPlaying()}
-        </div>
-      </div> */}
-
-
-
-      </div>
+      
     </div>
   )
 }
