@@ -12,7 +12,7 @@ const Discover =()=> {
   const my_api_key = 'e6c2230b40aa82b543cc9035099cf2ff'
   const wantedGenres = ['Action', 'Science fiction', 'Adventure', 'Fantasy', 'War', 'Animation', 'Drama', 'Horror']
    
-  
+  const [allGenres, setAllGenres] = useState([])
   const [genres, setGenres] = useState([])
   const [allMovies, setmoviesByGenre] = useState([])
   const [activeButton, setActiveButton] = useState([]);
@@ -20,7 +20,7 @@ const Discover =()=> {
 
 
 
-
+console.log(genres)
   const movies = async () => {
     const fetchedMovies = await axios.get(`${apiUrl}/discover/movie/`, {
       params: {
@@ -58,6 +58,7 @@ const Discover =()=> {
         
       }
     })
+    setAllGenres(fetchedGenres.data.genres)
     genresToKeep(fetchedGenres.data.genres)
   }
 

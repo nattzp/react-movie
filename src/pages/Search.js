@@ -37,10 +37,15 @@ function Search() {
       ))
     )
 
+
+    
     useEffect(() => {
         Searchedmovies()
       }, [typedData])
     
+
+
+
 
   return (
 

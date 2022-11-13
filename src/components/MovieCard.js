@@ -12,8 +12,6 @@ import noImageTrending from '../img/moviecardPlaceholderTrending.png'
 const MovieCard = ({ movie, isTrending }) => {
     const [isHovering, setIsHovering] = useState(false);
     const img_path = 'https://image.tmdb.org/t/p/original'
-    const [modalShow, setModalShow] = useState(false);
-
     const imgStyle
      = {
         opacity: !isTrending && isHovering ? '0.3' : '' ,
@@ -22,10 +20,6 @@ const MovieCard = ({ movie, isTrending }) => {
         objectFit: isTrending ? 'cover' : '',
         objectPosition : isTrending ? 'center' : '',
     }
-
-  
-  
-   
 
    const trendingOverlay
     = {
@@ -36,7 +30,7 @@ const MovieCard = ({ movie, isTrending }) => {
        borderTopLeftRadius: !isHovering && isTrending && '0',
        borderTopRightRadius: !isHovering && isTrending && '0',
        border: !isHovering && isTrending && 'none',
-       height:  (!isHovering &&isTrending) && '8vh' ,  
+       height:  (!isHovering &&isTrending) && '20%' ,  
        transition: isHovering && isTrending && '.5s ' ,
        alignItems: isTrending && 'start',
        
@@ -44,13 +38,11 @@ const MovieCard = ({ movie, isTrending }) => {
    }
 
     const imgPath=()=>{
-        
         if (isTrending){
             if(movie.backdrop_path){
                 return `${img_path}${movie.backdrop_path}`
             }
             else return noImageTrending
-            
         }
         else{
             if(movie.poster_path){
@@ -60,21 +52,6 @@ const MovieCard = ({ movie, isTrending }) => {
         } 
     }
 
-    // const image_path =()=>{
-    //     if (isTrending){
-    //         if(movie.backdrop_path){
-    //             return `${movie.backdrop_path}`
-    //         }
-    //         else return no_image
-    //     }
-    //     else{
-    //         if(movie.poster_path){
-    //             return `${movie.poster_path}`
-    //         }
-    //         else return no_image
-    //     }
-    //     //`${img_path}${path_ending()}`
-    // }
 
     const handleHover = () =>{
         setIsHovering(true)
@@ -90,35 +67,11 @@ const MovieCard = ({ movie, isTrending }) => {
 
     }
 
-    const handleClick= ()=>{
-        setModalShow(true)
-        //modalComp()
-        console.log(movie.title)
-    }
 
-    const modalComp = () => {
-        //console.log('här')
-        return ( console.log('här') &&
-                <div className='popup'>
-                    <div className='popup-inner'>
-                        <button className='close-btn'></button>
-                    <h1>hej</h1>
-                    </div>
-                    
-                </div>
-        )
-        
-    }
-
-    useEffect(() => {
-      modalComp()
-      console.log('use')
-      }, [modalShow])
    
     return (
         <>
-        <div onClick={() => handleClick(movie)}
-        onMouseOver={handleHover} onMouseLeave={handleNotHover} className='movie-card'>
+        <div onMouseOver={handleHover} onMouseLeave={handleNotHover} className='movie-card'>
         <img style = {imgStyle} className='movie-image' src={`${imgPath()}`} alt=''/>
             {(isHovering || isTrending) && 
                 <div  style ={trendingOverlay} className ='overlay'>
@@ -126,13 +79,10 @@ const MovieCard = ({ movie, isTrending }) => {
                 {isTrending && isHovering && <p id='movie-rating'className='movie-text'>IMDB rating: {movie.vote_average}</p>}
                 <p className='movie-text'>{getYear()}</p>
                 </div> 
-            }
-        
-        
+            }    
         </div>
 
-        {/* {modalShow &&
-        <div className='popup'>
+        {/* {<div className='popup'>
                     <div className='popup-inner'>
                         <button className='close-btn'></button>
                     <h1>hej</h1>

@@ -8,7 +8,7 @@ import "react-multi-carousel/lib/styles.css";
 
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 
 function Home() {
@@ -17,11 +17,16 @@ function Home() {
   const [moviesNowPlaying, setmoviesNowPlaying] = useState([])
   const [moviesTopRated, setmoviesTopRated] = useState([])
   const [moviesTrending, setmoviesTrending] = useState([])
+  const [currentPopupObject, setcurrentPopupObject] = useState([])
+  const [popupContentId, setPopupContentId] = useState([])
+  const [modalShow, setmodalShow] = useState(false);
+  const[loadingPopupContent, setloadingPopupContent] = useState(true)
+
 
   const trending = async () => {
     const fetchedTrending = await axios.get(`${apiUrl}/trending/movie/${'week'}`, {
       params: {
-        api_key: my_api_key
+        api_key: my_api_key //todo hitta sätt att få trailer och credits
       }
     })
     setmoviesTrending(fetchedTrending.data.results)
@@ -30,7 +35,8 @@ function Home() {
   const nowPlaying = async () => {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
       params: {
-        api_key: my_api_key
+        api_key: my_api_key,
+        
       }
     })
     setmoviesNowPlaying(fetchedNowPlaying.data.results)
@@ -39,42 +45,89 @@ function Home() {
   const topRated = async () => {
     const fetchedTopRated = await axios.get(`${apiUrl}/movie/top_rated`, {
       params: {
-        api_key: my_api_key
+        api_key: my_api_key,
+        //append_to_response: 'videos, credits'
       }
     })
     setmoviesTopRated(fetchedTopRated.data.results)
+  }
+
+  const currentPopupMovie = async () => {
+    setloadingPopupContent(true)
+    const fecthedData = await axios.get(`${apiUrl}/movie/${popupContentId}`, {
+      params: {
+        api_key: my_api_key,
+        append_to_response: 'credits,videos'
+      }
+    })
+    setcurrentPopupObject(fecthedData.data)
+    setloadingPopupContent(false)
+    //console.log(currentPopupObject.credits.cast)
+    
   }
 
   useEffect(() => {
     nowPlaying()
     topRated()
     trending()
+    
   }, [])
+
+  useEffect(() => {
+    currentPopupMovie()
+
+    console.log(currentPopupObject)
+    
+  },[popupContentId])
+
+
+
+
+
+  const handleClick= (movie)=>{
+        setPopupContentId(movie.id) 
+        setmodalShow(true)
+
+    }
+
+
+ 
+const popupStyle = {
+  visibility: modalShow && 'visible'
+}
 
   const rendermoviesTrending = () => (
     moviesTrending.map(movie => (
+      <div className='movie-card-wrapper' key = {movie.id} onClick={() => handleClick(movie)}>
       <MovieCard isTrending={true}
         key={movie.id}
         movie={movie}
+        onClick={() => handleClick(movie)}
       />
+      </div>
     ))
   )
 
   const rendermoviesNowPlaying = () => (
     moviesNowPlaying.map(movie => (
+      <div className='movie-card-wrapper' key = {movie.id}  onClick={() => handleClick(movie)}>
       <MovieCard 
         key={movie.id}
         movie={movie}
       />
+      </div>
     ))
   )
 
   const rendermoviesTopRated = () => (
     moviesTopRated.map(movie => (
+      <div className='movie-card-wrapper' key = {movie.id} onClick={() => handleClick(movie)}>
       <MovieCard 
         key={movie.id}
         movie={movie}
+        onClick={() => handleClick(movie)}
       />
+      </div>
     ))
   )
 
@@ -122,30 +175,18 @@ function Home() {
     }
   };
 
-  const itemStyle = {
-    padding: '10px' ,
-    width: '5px',
-  }
+  const img_path = 'https://image.tmdb.org/t/p/original'
 
-
-
-
-
-
-
-
-
-
-
+  
   return (
 
     <div className='home'>
 
     <div className='movie-section'>
-
       <div className='movie-showcase'>
         <h1 className='headline'>Trending</h1>
-        <Carousel responsive={responsiveTrending} partialVisible={false} infinite={true} itemClass="carousel-item">
+        <Carousel 
+        responsive={responsiveTrending} partialVisible={false} infinite={true} itemClass="carousel-item">
         {rendermoviesTrending()}
         </Carousel>
       </div>
@@ -162,9 +203,46 @@ function Home() {
         <Carousel responsive={responsive}  partialVisible={false} infinite={true} itemClass="carousel-item">
           {rendermoviesTopRated()}
         </Carousel>
-      </div>
+    </div>
 
-      </div>
+    </div>
+     
+    <div style={popupStyle} className='popup'>
+    {!loadingPopupContent &&
+      <div className='popup-inner'>
+        
+        <div className='upper-section-popup'>
+        <button onClick={() => setmodalShow(false)}  className='popup-btn'>x</button>
+        <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt=''/>
+        </div>
+        <div className='lower-section-popup'>
+          
+          <div className='popup-description'>
+          <h2 className='popup-title'>{currentPopupObject.title}</h2>
+            {currentPopupObject.overview}
+          </div>
+          <div className='popup-information-section'>  
+
+          <p className='popup-actors'><span style={{color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px'}}>Actors: </span>
+            {currentPopupObject.credits.cast.slice(0,5).map(person =>(
+                <span className='popup-actor'>{person.name}</span>
+               ))}
+          </p>
+          <p className='popup-genres'><span style={{color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px'}}>Genres: </span>
+            {currentPopupObject.genres.map(genre =>(
+                <span className='popup-genre'>{genre.name}</span>
+               ))}
+          </p>
+
+
+          </div>
+        </div>
+        
+        
+        
+      </div>}
+    </div>
+    
 
 
   

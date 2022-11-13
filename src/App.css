@@ -25,6 +25,7 @@
     font-size: 130%;
     padding-bottom: 20px;
     
+    
 }
 
 
@@ -161,26 +162,132 @@
 
 .popup {
     position: fixed;
+    padding-left: 200px;
     top:0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
-    align-items: center;
+    
+    z-index: 1002;
+    visibility: hidden;
+    padding-top: 5vh;
+    padding-bottom: 5vh;
+  
 }
 
 .popup-inner{
     position: relative;
-    padding: 30px;
-    width: 100%;
-    max-width: 600px;
-    background-color: white;
+    width: 60vw;
+    height: 100%;
+    border-radius: 30px;
+    align-items: center;
+    justify-content: center;
+    z-index: 1003;
+    top: 0;
+    box-shadow: 0 0 40px 40px rgba(255, 255, 255, 0.105);
+    overflow: scroll;
+    
 }
 
 .popup-inner .close-btn{
     position: absolute;
     top: 16px;
     right: 16px;
+}
+
+
+
+.popup-btn{
+    top: 20px;
+    left: 20px;
+    font-size: 100%;
+    font-weight: 100;
+    width: 40px;
+    height: 40px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+    padding: 2px;
+    
+    
+
+}
+.popup-btn:hover {
+    font-size: 150%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-btn:active {
+    background-color: black;
+}
+
+
+.movie-card-wrapper{
+    width: 100%;
+    height: 100%;
+}
+
+.popup-movie-image {
+	width: 100%;
+    height: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    top: 0;
+    left: 0;
+    
+    
+}
+
+.upper-section-popup{
+    width: 100%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    
+}
+
+.lower-section-popup{
+    width: 100%;
+    font-size: 14px;
+    line-height: 20px;
+   
+}
+
+.popup-description{
+    float: left;
+    width: 60%;
+    
+    height: 100%;
+    padding: 5%;
+
+}
+
+.popup-information-section{
+    padding: 5%;
+    float: right;
+    top: 0;
+    width: 40%;
+    height: 100%;
+   
+
+}
+
+.popup-title{
+    padding-bottom: 3%;
+    color: rgb(125, 125, 125);
+}
+
+.popup-actor:not(:last-child)::after { content: ', ' }
+.popup-genre:not(:last-child)::after { content: ', ' }
+
+.popup-actor, .popup-genre {
+    margin-left: 0;
+}
+
+.popup-genres{
+    margin-top: 5px;
 }
