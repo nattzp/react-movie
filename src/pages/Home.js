@@ -6,30 +6,26 @@ import MovieCard from '../components/MovieCard.js'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 
 function Home() {
   const apiUrl = 'https://api.themoviedb.org/3'
   const my_api_key = 'e6c2230b40aa82b543cc9035099cf2ff'
-
   const [moviesNowPlaying, setmoviesNowPlaying] = useState([])
   const [moviesTopRated, setmoviesTopRated] = useState([])
   const [moviesTrending, setmoviesTrending] = useState([])
 
-
-
   const trending = async () => {
-    const fetchedTrending = await axios.get(`${apiUrl}/trending/${'movie'}/${'week'}`, {
+    const fetchedTrending = await axios.get(`${apiUrl}/trending/movie/${'week'}`, {
       params: {
         api_key: my_api_key
       }
     })
     setmoviesTrending(fetchedTrending.data.results)
-   
   }
-
 
   const nowPlaying = async () => {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
@@ -38,7 +34,6 @@ function Home() {
       }
     })
     setmoviesNowPlaying(fetchedNowPlaying.data.results)
-    
   }
 
   const topRated = async () => {
@@ -54,7 +49,6 @@ function Home() {
     nowPlaying()
     topRated()
     trending()
-
   }, [])
 
   const rendermoviesTrending = () => (
@@ -84,27 +78,27 @@ function Home() {
     ))
   )
 
-
-
-
   const responsive = {
-
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5
+      items: 7
     },
     desktop: {
-      breakpoint: { max: 3000, min: 1024 },
+      breakpoint: { max: 3000, min: 2000 },
+      items: 6
+    },
+    smalldesktop: {
+      breakpoint: { max: 2000, min: 1024 },
       items: 5
     },
     tablet: {
-      breakpoint: { max: 1024, min: 464 },
+      breakpoint: { max: 1024, min: 600 },
       items: 3
     },
     mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 2
+      breakpoint: { max: 600, min: 0 },
+      items: 1
     }
   };
 
@@ -131,9 +125,16 @@ function Home() {
   const itemStyle = {
     padding: '10px' ,
     width: '5px',
-
-
   }
+
+
+
+
+
+
+
+
+
 
 
   return (
@@ -164,6 +165,9 @@ function Home() {
       </div>
 
       </div>
+
+
+  
     </div>
   )
 }

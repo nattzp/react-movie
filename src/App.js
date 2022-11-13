@@ -5,8 +5,11 @@ import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-d
 import Home from './pages/Home'
 import Discover from './pages/Discover'
 import SearchBar from './components/SearchBar'
+import Search from "./pages/Search";
 
 function App() {
+
+
     return (
         <React.Fragment>
             <Router>
@@ -15,6 +18,7 @@ function App() {
                 <Switch>
                     <Route path='/' exact element={<Home />} />
                     <Route path='/discover' exact element={<Discover />} />
+                    <Route path='/search/:query' exact element={<Search />} />
                 </Switch>
             </Router>
 
