@@ -5,22 +5,19 @@ import axios from 'axios';
 import MovieCard from '../components/MovieCard.js'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { AiOutlineCloseCircle } from "react-icons/ai";
-
+import YoutubeEmbed from "../components/YoutubeEmbed";
 
 function Home() {
   const apiUrl = 'https://api.themoviedb.org/3'
+  const img_path = 'https://image.tmdb.org/t/p/original'
   const my_api_key = 'e6c2230b40aa82b543cc9035099cf2ff'
   const [moviesNowPlaying, setmoviesNowPlaying] = useState([])
   const [moviesTopRated, setmoviesTopRated] = useState([])
   const [moviesTrending, setmoviesTrending] = useState([])
-  const [currentPopupObject, setcurrentPopupObject] = useState([])
-  const [popupContentId, setPopupContentId] = useState([])
-  const [modalShow, setmodalShow] = useState(false);
-  const[loadingPopupContent, setloadingPopupContent] = useState(true)
+  const [currentPopupObject, setcurrentPopupObject] = useState([]) //denna
+  const [popupContentId, setPopupContentId] = useState([]) //denna
+  const [modalShow, setmodalShow] = useState(false); //denna
+  const [loadingPopupContent, setloadingPopupContent] = useState(true) //denna
 
 
   const trending = async () => {
@@ -36,7 +33,7 @@ function Home() {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
       params: {
         api_key: my_api_key,
-        
+
       }
     })
     setmoviesNowPlaying(fetchedNowPlaying.data.results)
@@ -52,6 +49,7 @@ function Home() {
     setmoviesTopRated(fetchedTopRated.data.results)
   }
 
+  //denna
   const currentPopupMovie = async () => {
     setloadingPopupContent(true)
     const fecthedData = await axios.get(`${apiUrl}/movie/${popupContentId}`, {
@@ -62,71 +60,44 @@ function Home() {
     })
     setcurrentPopupObject(fecthedData.data)
     setloadingPopupContent(false)
+    console.log(currentPopupObject)
     //console.log(currentPopupObject.credits.cast)
-    
+
   }
 
-  useEffect(() => {
-    nowPlaying()
-    topRated()
-    trending()
-    
-  }, [])
 
-  useEffect(() => {
-    currentPopupMovie()
-
-    console.log(currentPopupObject)
-    
-  },[popupContentId])
-
-
-
-
-
-  const handleClick= (movie)=>{
-        setPopupContentId(movie.id) 
-        setmodalShow(true)
-
-    }
-
-
- 
-const popupStyle = {
-  visibility: modalShow && 'visible'
-}
-
+  //div wrapper runt moviecard
   const rendermoviesTrending = () => (
     moviesTrending.map(movie => (
-      <div className='movie-card-wrapper' key = {movie.id} onClick={() => handleClick(movie)}>
-      <MovieCard isTrending={true}
-        key={movie.id}
-        movie={movie}
-        onClick={() => handleClick(movie)}
-      />
+      <div className='movie-card-wrapper' key={movie.id} onClick={() => handleClick(movie)}>
+        <MovieCard isTrending={true}
+          key={movie.id}
+          movie={movie}
+          onClick={() => handleClick(movie)}
+        />
       </div>
     ))
   )
 
   const rendermoviesNowPlaying = () => (
     moviesNowPlaying.map(movie => (
-      <div className='movie-card-wrapper' key = {movie.id}  onClick={() => handleClick(movie)}>
-      <MovieCard 
-        key={movie.id}
-        movie={movie}
-      />
+      <div className='movie-card-wrapper' key={movie.id} onClick={() => handleClick(movie)}>
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+        />
       </div>
     ))
   )
 
   const rendermoviesTopRated = () => (
     moviesTopRated.map(movie => (
-      <div className='movie-card-wrapper' key = {movie.id} onClick={() => handleClick(movie)}>
-      <MovieCard 
-        key={movie.id}
-        movie={movie}
-        onClick={() => handleClick(movie)}
-      />
+      <div className='movie-card-wrapper' key={movie.id} onClick={() => handleClick(movie)}>
+        <MovieCard
+          key={movie.id}
+          movie={movie}
+          onClick={() => handleClick(movie)}
+        />
       </div>
     ))
   )
@@ -151,7 +122,7 @@ const popupStyle = {
     },
     mobile: {
       breakpoint: { max: 600, min: 0 },
-      items: 1
+      items: 2
     }
   };
 
@@ -175,77 +146,114 @@ const popupStyle = {
     }
   };
 
-  const img_path = 'https://image.tmdb.org/t/p/original'
+  //denna
+  const popupStyle = {
+    visibility: modalShow && 'visible'
+  }
 
-  
+  useEffect(() => {
+    nowPlaying()
+    topRated()
+    trending()
+
+  }, [])
+
+  //denna 
+  useEffect(() => {
+    currentPopupMovie()
+
+
+
+  }, [popupContentId])
+
+  //denna
+  const handleClick = (movie) => {
+    setPopupContentId(movie.id)
+    setmodalShow(true)
+
+  }
+
+
+
+
   return (
 
     <div className='home'>
 
-    <div className='movie-section'>
-      <div className='movie-showcase'>
-        <h1 className='headline'>Trending</h1>
-        <Carousel 
-        responsive={responsiveTrending} partialVisible={false} infinite={true} itemClass="carousel-item">
-        {rendermoviesTrending()}
-        </Carousel>
+      <div className='movie-section'>
+        <div className='movie-showcase'>
+          <h1 className='headline'>Trending</h1>
+          <Carousel
+            responsive={responsiveTrending} partialVisible={false} infinite={true} itemClass="carousel-item">
+            {rendermoviesTrending()}
+          </Carousel>
+        </div>
+
+        <div className='movie-showcase'>
+          <h1 className='headline'>Now playing</h1>
+          <Carousel responsive={responsive} partialVisible={false} infinite={true} itemClass="carousel-item">
+            {rendermoviesNowPlaying()}
+          </Carousel>
+        </div>
+
+        <div className='movie-showcase'>
+          <h1 className='headline'>Top Rated</h1>
+          <Carousel responsive={responsive} partialVisible={false} infinite={true} itemClass="carousel-item">
+            {rendermoviesTopRated()}
+          </Carousel>
+        </div>
+
       </div>
 
-      <div className='movie-showcase'>
-        <h1 className='headline'>Now playing</h1>
-        <Carousel responsive={responsive} partialVisible={false} infinite={true} itemClass="carousel-item">
-        {rendermoviesNowPlaying()}
-        </Carousel>
+
+
+
+
+      <div style={popupStyle} className='popup'>
+        {!loadingPopupContent &&
+          <div className='popup-inner'>
+
+            <div className='upper-section-popup'>
+              <button onClick={() => setmodalShow(false)} className='popup-btn'>x</button>
+              <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt='' />
+            </div>
+
+            <div className='lower-section-popup'>
+              <div className='popup-description'>
+                <h2 className='popup-title'>{currentPopupObject.title}</h2>
+                {currentPopupObject.overview}
+              </div>
+              <div className='popup-information-section'>
+
+                <p className='popup-actors'><span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px' }}>Actors: </span>
+                  {currentPopupObject.credits.cast.slice(0, 5).map(person => (
+                    <span className='popup-actor'>{person.name}</span>
+                  ))}
+                </p>
+                <p className='popup-genres'><span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px' }}>Genres: </span>
+                  {currentPopupObject.genres.map(genre => (
+                    <span className='popup-genre'>{genre.name}</span>
+                  ))}
+                </p>
+              </div>
+            </div>
+
+            <div className='popup-trailer-section-wrapper'>
+              <h2 className='popup-title'>Trailers</h2>
+              <div className='popup-trailer-section'>
+                {currentPopupObject.videos.results.slice(-2).map(movie => (
+                  <div className='popup-youtube'>
+                    <YoutubeEmbed embedId={movie.key} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+
+
+          </div>}
       </div>
 
-      <div className='movie-showcase'>
-        <h1 className='headline'>Top Rated</h1>
-        <Carousel responsive={responsive}  partialVisible={false} infinite={true} itemClass="carousel-item">
-          {rendermoviesTopRated()}
-        </Carousel>
-    </div>
-
-    </div>
-     
-    <div style={popupStyle} className='popup'>
-    {!loadingPopupContent &&
-      <div className='popup-inner'>
-        
-        <div className='upper-section-popup'>
-        <button onClick={() => setmodalShow(false)}  className='popup-btn'>x</button>
-        <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt=''/>
-        </div>
-        <div className='lower-section-popup'>
-          
-          <div className='popup-description'>
-          <h2 className='popup-title'>{currentPopupObject.title}</h2>
-            {currentPopupObject.overview}
-          </div>
-          <div className='popup-information-section'>  
-
-          <p className='popup-actors'><span style={{color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px'}}>Actors: </span>
-            {currentPopupObject.credits.cast.slice(0,5).map(person =>(
-                <span className='popup-actor'>{person.name}</span>
-               ))}
-          </p>
-          <p className='popup-genres'><span style={{color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px'}}>Genres: </span>
-            {currentPopupObject.genres.map(genre =>(
-                <span className='popup-genre'>{genre.name}</span>
-               ))}
-          </p>
-
-
-          </div>
-        </div>
-        
-        
-        
-      </div>}
-    </div>
-    
-
-
-  
     </div>
   )
 }
