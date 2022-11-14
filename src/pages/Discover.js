@@ -195,6 +195,10 @@ const Discover = () => {
                     <span className='popup-genre'>{genre.name}</span>
                   ))}
                 </p>
+                <p style={{marginTop:'5px'}} >
+                <span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0' }}>Rating: </span>
+                {currentPopupObject.vote_average}
+                </p>
 
 
               </div>

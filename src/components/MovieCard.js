@@ -76,7 +76,7 @@ const MovieCard = ({ movie, isTrending }) => {
             {(isHovering || isTrending) && 
                 <div  style ={trendingOverlay} className ='overlay'>
                 <h5 className='movie-title'>{movie.title}</h5> 
-                {isTrending && isHovering && <p id='movie-rating'className='movie-text'>IMDB rating: {movie.vote_average}</p>}
+                {isTrending && isHovering && <p id='movie-rating'className='movie-text'>Rating: {movie.vote_average}</p>}
                 <p className='movie-text'>{getYear()}</p>
                 </div> 
             }    
