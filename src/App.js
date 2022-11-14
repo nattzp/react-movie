@@ -1,7 +1,7 @@
 import React from "react";
 import './App.css';
 import SideNav from "./components/SideNav";
-import { BrowserRouter as Router, Routes as Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes as Switch, Route } from 'react-router-dom';
 import Home from './pages/Home'
 import Discover from './pages/Discover'
 import SearchBar from './components/SearchBar'
@@ -21,9 +21,6 @@ function App() {
                     <Route path='/search/:query' exact element={<Search />} />
                 </Switch>
             </Router>
-
-
-
         </React.Fragment>
     )
 }
