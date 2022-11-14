@@ -4,20 +4,16 @@ import { useParams } from "react-router-dom";
 import MovieCard from '../components/MovieCard';
 import YoutubeEmbed from "../components/YoutubeEmbed";
 
-
-
-
 function Search() {
     const img_path = 'https://image.tmdb.org/t/p/original'
     const typedData = useParams();
     const apiUrl = 'https://api.themoviedb.org/3'
     const my_api_key = 'e6c2230b40aa82b543cc9035099cf2ff'
     const [searchedMovies, setSearchedMovies] = useState([])
-    const [currentPopupObject, setcurrentPopupObject] = useState([]) //denna
-    const [popupContentId, setPopupContentId] = useState([]) //denna
-    const [modalShow, setmodalShow] = useState(false); //denna
-    const [loadingPopupContent, setloadingPopupContent] = useState(true) //denna
-
+    const [currentPopupObject, setcurrentPopupObject] = useState([])
+    const [popupContentId, setPopupContentId] = useState([])
+    const [modalShow, setmodalShow] = useState(false);
+    const [loadingPopupContent, setloadingPopupContent] = useState(true)
 
 
     const Searchedmovies = async () => {
@@ -41,7 +37,6 @@ function Search() {
         setcurrentPopupObject(fecthedData.data)
         setloadingPopupContent(false)
     }
-
 
     const renderSearchedMovies = () => (
         searchedMovies.map(movie => (
@@ -73,7 +68,6 @@ function Search() {
 
     return (
         <div className='search'>
-
             <div className='movie.section'>
                 <h1 className='heading'>Search</h1>
                 <div className='movie-showcase'>
@@ -82,23 +76,19 @@ function Search() {
                     </div>
                 </div>
             </div>
-
             <div style={popupStyle} className='popup'>
                 {!loadingPopupContent &&
                     <div className='popup-inner'>
-
                         <div className='upper-section-popup'>
                             <button onClick={() => setmodalShow(false)} className='popup-btn'>x</button>
                             <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt='' />
                         </div>
                         <div className='lower-section-popup'>
-
                             <div className='popup-description'>
                                 <h2 className='popup-title'>{currentPopupObject.title}</h2>
                                 {currentPopupObject.overview}
                             </div>
                             <div className='popup-information-section'>
-
                                 <p className='popup-actors'><span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px' }}>Actors: </span>
                                     {currentPopupObject.credits.cast.slice(0, 5).map(person => (
                                         <span className='popup-actor'>{person.name}</span>
@@ -113,11 +103,8 @@ function Search() {
                                     <span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0' }}>Rating: </span>
                                     {currentPopupObject.vote_average}
                                 </p>
-
-
                             </div>
                         </div>
-
                         <div className='popup-trailer-section-wrapper'>
                             <h2 className='popup-title'>Trailers</h2>
                             <div className='popup-trailer-section'>
@@ -128,10 +115,8 @@ function Search() {
                                 ))}
                             </div>
                         </div>
-
                     </div>}
             </div>
-
         </div>
     )
 }

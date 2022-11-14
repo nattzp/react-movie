@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react'
+import React, { useState} from 'react'
 import './SearchBar.css'
 import { AiOutlineSearch } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom'
@@ -16,24 +16,15 @@ function SearchBar({placeholder}) {
         setTypedData(typedData);
       };
     
-    //const queryRef = useRef(null)
     const navigate = useNavigate()
 
     const enterHandler = (event) => {
         if (event.key === 'Enter'){
             setRedirect(true)
-            console.log('enter')
             navigate(`/search/${typedData}`)
             setTypedData('')
-            
         }
     }
-    
-  
-    // useEffect(() => {
-    
-    // }, [redirect])
-
 
     return(
         <>
@@ -46,28 +37,12 @@ function SearchBar({placeholder}) {
                     onChange={onChangeHandler}
                     onKeyUp ={enterHandler}
                 />
-                
                 <div className='searchIcon'>
                     <AiOutlineSearch style={iconStyle} size={'20px'}/>
                 </div>
-
-              
-
             </div>
-        
-        
         </div>
-        {/* {redirect && 
-          <Navigate to={{
-            pathname: '/search/'+typedData,
-            
-          }}/>
-          
-        } */}
         </>
-        
-
-
     )
 }
 

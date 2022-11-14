@@ -25,25 +25,17 @@
     
 }
 
-
-
 .movie-showcase{
     height: 100%;
     padding-bottom: 30px;
     width: 100%;
 }
 
-
-
 .headline{
     margin-bottom: 20px;
     font-size: 130%;
     
 }
-
-
-
-
 
 .movie-list{
     width: 100%;
@@ -52,7 +44,6 @@
     gap: 20px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
-
 
 .carousel-item {
     padding: 5px;
@@ -64,9 +55,7 @@
     margin-left: -5px;
     display: flex;
     overflow: scroll;
-    
 }
-
 
 #activeBtn{
     color: black;
@@ -87,11 +76,6 @@
     padding: 5px;
 }
 
-
-
-
-
-
 .popup {
     position: fixed;
     padding-left: 200px;
@@ -102,12 +86,10 @@
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
-    
     z-index: 1010;
     visibility: hidden;
     padding-top: 5vh;
     padding-bottom: 5vh;
-  
 }
 
 .popup-inner{
@@ -121,7 +103,6 @@
     top: 0;
     box-shadow: 0 0 40px 40px rgba(255, 255, 255, 0.105);
     overflow: scroll;
-    
 }
 
 .popup-inner .close-btn{
@@ -129,8 +110,6 @@
     top: 16px;
     right: 16px;
 }
-
-
 
 .popup-btn{
     top: 20px;
@@ -146,10 +125,8 @@
     position: absolute;
     padding: 2px;
     cursor: pointer;
-    
-    
-
 }
+
 .popup-btn:hover {
     font-size: 150%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -158,7 +135,6 @@
 .popup-btn:active {
     background-color: black;
 }
-
 
 .movie-card-wrapper{
     width: 100%;
@@ -172,25 +148,20 @@
     border-top-right-radius: 30px;
     top: 0;
     left: 0;
-    
-    
 }
 
 .upper-section-popup{
     width: 100%;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
-    
 }
 
 .lower-section-popup{
     width: 100%;
     font-size: 14px;
     line-height: 20px;
-    
     min-height: 250px;
     display: inline-block;
-   
 }
 
 .popup-description{
@@ -198,7 +169,6 @@
     width: 60%;
     height: 100%;
     padding: 5%;
-
 }
 
 .popup-information-section{
@@ -207,15 +177,11 @@
     top: 0;
     width: 40%;
     height: 100%;
-   
-
 }
 
 .popup-title{
     padding-bottom: 3%;
-    color: rgb(125, 125, 125);
-
-   
+    color: rgb(125, 125, 125);   
 }
 
 .popup-actor:not(:last-child)::after { content: ', ' }
@@ -236,7 +202,6 @@
 }
 .popup-trailer-section{
     width: 100%;
-   
 }
 
 .popup-youtube{
@@ -247,22 +212,14 @@
 }
 
 
-
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .popup {
-    
-    
-    padding: 20px;
-    
-
+        padding: 20px;
     }
     .popup-inner{
-
         width: 100vw;
         height: 100%;
-        
-    
     }
 
     .home, .discover, .search {
@@ -284,32 +241,31 @@
         border-radius: 50px;
         
     }
+
     .button-wrapper{
         padding: 2px;
         width: 102px;
         float: left;
         
     }
+
     .movie-list{
-        gap: 20px; /* todo: behövs detta?*/
+        gap: 20px; 
         grid-template-columns: 1fr 1fr;
     }
+
     .genre-button-section{
         padding-top: 5px;
         padding-bottom: 10px;
         display: inline-block;
         margin-left: 2px;
         align-items: center;
-    
-        
     }
-
 } 
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px ) {
     .movie-list{
-        gap: 20px; /* todo: behövs detta?*/
         grid-template-columns: 1fr 1fr;
     }
 } 
@@ -317,7 +273,6 @@
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
     .movie-list{
-        gap: 20px; /* todo: behövs detta?*/
         grid-template-columns: 1fr 1fr 1fr;
     }
 } 
@@ -325,7 +280,6 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .movie-list{
-        gap: 20px; /* todo: behövs detta?*/
         grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 } 
@@ -333,7 +287,6 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .movie-list{
-        gap: 20px; /* todo: behövs detta?*/
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
 }

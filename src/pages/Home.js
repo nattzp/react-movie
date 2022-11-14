@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-//import moviesNowPlayinghowcase from '../components/moviesNowPlayinghowcase'
-//import SearchBar from '../components/SearchBar'
 import MovieCard from '../components/MovieCard.js'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -14,16 +12,16 @@ function Home() {
   const [moviesNowPlaying, setmoviesNowPlaying] = useState([])
   const [moviesTopRated, setmoviesTopRated] = useState([])
   const [moviesTrending, setmoviesTrending] = useState([])
-  const [currentPopupObject, setcurrentPopupObject] = useState([]) //denna
-  const [popupContentId, setPopupContentId] = useState([]) //denna
-  const [modalShow, setmodalShow] = useState(false); //denna
-  const [loadingPopupContent, setloadingPopupContent] = useState(true) //denna
+  const [currentPopupObject, setcurrentPopupObject] = useState([]) 
+  const [popupContentId, setPopupContentId] = useState([]) 
+  const [modalShow, setmodalShow] = useState(false); 
+  const [loadingPopupContent, setloadingPopupContent] = useState(true) 
 
 
   const trending = async () => {
     const fetchedTrending = await axios.get(`${apiUrl}/trending/movie/${'week'}`, {
       params: {
-        api_key: my_api_key //todo hitta sätt att få trailer och credits
+        api_key: my_api_key 
       }
     })
     setmoviesTrending(fetchedTrending.data.results)
@@ -33,7 +31,6 @@ function Home() {
     const fetchedNowPlaying = await axios.get(`${apiUrl}/movie/now_playing`, {
       params: {
         api_key: my_api_key,
-
       }
     })
     setmoviesNowPlaying(fetchedNowPlaying.data.results)
@@ -43,13 +40,11 @@ function Home() {
     const fetchedTopRated = await axios.get(`${apiUrl}/movie/top_rated`, {
       params: {
         api_key: my_api_key,
-        //append_to_response: 'videos, credits'
       }
     })
     setmoviesTopRated(fetchedTopRated.data.results)
   }
 
-  //denna
   const currentPopupMovie = async () => {
     setloadingPopupContent(true)
     const fecthedData = await axios.get(`${apiUrl}/movie/${popupContentId}`, {
@@ -60,13 +55,8 @@ function Home() {
     })
     setcurrentPopupObject(fecthedData.data)
     setloadingPopupContent(false)
-    console.log(currentPopupObject)
-    //console.log(currentPopupObject.credits.cast)
-
   }
 
-
-  //div wrapper runt moviecard
   const rendermoviesTrending = () => (
     moviesTrending.map(movie => (
       <div className='movie-card-wrapper' key={movie.id} onClick={() => handleClick(movie)}>
@@ -104,7 +94,6 @@ function Home() {
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 7
     },
@@ -128,7 +117,6 @@ function Home() {
 
   const responsiveTrending = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 2
     },
@@ -146,7 +134,6 @@ function Home() {
     }
   };
 
-  //denna
   const popupStyle = {
     visibility: modalShow && 'visible'
   }
@@ -155,31 +142,20 @@ function Home() {
     nowPlaying()
     topRated()
     trending()
-
   }, [])
 
-  //denna 
   useEffect(() => {
     currentPopupMovie()
-
-
-
   }, [popupContentId])
 
-  //denna
   const handleClick = (movie) => {
     setPopupContentId(movie.id)
     setmodalShow(true)
-
   }
-
-
-
 
   return (
 
     <div className='home'>
-
       <div className='movie-section'>
         <div className='movie-showcase'>
           <h1 className='headline'>Trending</h1>
@@ -204,27 +180,19 @@ function Home() {
         </div>
 
       </div>
-
-
-
-
-
       <div style={popupStyle} className='popup'>
         {!loadingPopupContent &&
           <div className='popup-inner'>
-
             <div className='upper-section-popup'>
               <button onClick={() => setmodalShow(false)} className='popup-btn'>x</button>
               <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt='' />
             </div>
-
             <div className='lower-section-popup'>
               <div className='popup-description'>
                 <h2 className='popup-title'>{currentPopupObject.title}</h2>
                 {currentPopupObject.overview}
               </div>
               <div className='popup-information-section'>
-
                 <p className='popup-actors'><span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px' }}>Actors: </span>
                   {currentPopupObject.credits.cast.slice(0, 5).map(person => (
                     <span className='popup-actor'>{person.name}</span>
@@ -241,7 +209,6 @@ function Home() {
                 </p>
               </div>
             </div>
-
             <div className='popup-trailer-section-wrapper'>
               <h2 className='popup-title'>Trailers</h2>
               <div className='popup-trailer-section'>
@@ -252,12 +219,8 @@ function Home() {
                 ))}
               </div>
             </div>
-
-
-
           </div>}
       </div>
-
     </div>
   )
 }

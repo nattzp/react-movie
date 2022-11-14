@@ -8,8 +8,7 @@ import SearchBar from './components/SearchBar'
 import Search from "./pages/Search";
 
 function App() {
-
-
+    
     return (
         <React.Fragment>
             <Router>

@@ -16,10 +16,10 @@ const Discover = () => {
   const [allMovies, setmoviesByGenre] = useState([])
   const [activeButton, setActiveButton] = useState([]);
 
-  const [currentPopupObject, setcurrentPopupObject] = useState([]) //denna
-  const [popupContentId, setPopupContentId] = useState([]) //denna
-  const [modalShow, setmodalShow] = useState(false); //denna
-  const [loadingPopupContent, setloadingPopupContent] = useState(true) //denna
+  const [currentPopupObject, setcurrentPopupObject] = useState([]) 
+  const [popupContentId, setPopupContentId] = useState([]) 
+  const [modalShow, setmodalShow] = useState(false); 
+  const [loadingPopupContent, setloadingPopupContent] = useState(true) 
 
 
 
@@ -32,8 +32,6 @@ const Discover = () => {
       }
     })
     setmoviesByGenre(fetchedMovies.data.results)
-
-
   }
 
   const renderMovies = () => (
@@ -49,7 +47,6 @@ const Discover = () => {
 
   function handleClickGenreButton(genre) {
     setActiveButton(genre)
-    //filterMovies()
   }
 
 
@@ -57,7 +54,6 @@ const Discover = () => {
     const fetchedGenres = await axios.get(`${apiUrl}/genre/movie/list`, {
       params: {
         api_key: my_api_key
-
       }
     })
     genresToKeep(fetchedGenres.data.genres)
@@ -77,13 +73,11 @@ const Discover = () => {
           id={activeButton.name === genre.name ? 'activeBtn' : 'undefined'}
           type='button'
           key={genre.id}
-          //genre = {genre}
           className={'genre-button'}
           onClick={() => handleClickGenreButton(genre)}
         >{genre.name}</button>
       </div>
     ))
-
   )
 
   function genresToKeep(allGenres) {
@@ -96,7 +90,6 @@ const Discover = () => {
     setGenres(genresCopy)
   }
 
-  //denna
   const currentPopupMovie = async () => {
     setloadingPopupContent(true)
     const fecthedData = await axios.get(`${apiUrl}/movie/${popupContentId}`, {
@@ -107,30 +100,19 @@ const Discover = () => {
     })
     setcurrentPopupObject(fecthedData.data)
     setloadingPopupContent(false)
-    //console.log(currentPopupObject.credits.cast)
-
   }
 
-
-
-  //denna 
   useEffect(() => {
     currentPopupMovie()
-
-    console.log(currentPopupObject)
-
   }, [popupContentId])
 
-  //denna
   const handleClick = (movie) => {
     setPopupContentId(movie.id)
     setmodalShow(true)
-
   }
 
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
       items: 5
     },
@@ -148,7 +130,6 @@ const Discover = () => {
     }
   };
 
-  //denna
   const popupStyle = {
     visibility: modalShow && 'visible'
   }
@@ -158,7 +139,6 @@ const Discover = () => {
     <div className='discover'>
       <div className='movie-section'>
         <h1 className='heading'>Discover</h1>
-
         <div className='genre-button-section'>
           {renderGenres()}
         </div>
@@ -168,23 +148,19 @@ const Discover = () => {
           </div>
         </div>
       </div>
-
       <div style={popupStyle} className='popup'>
         {!loadingPopupContent &&
           <div className='popup-inner'>
-
             <div className='upper-section-popup'>
               <button onClick={() => setmodalShow(false)} className='popup-btn'>x</button>
               <img className='popup-movie-image' src={`${img_path}${currentPopupObject.backdrop_path}`} alt='' />
             </div>
             <div className='lower-section-popup'>
-
               <div className='popup-description'>
                 <h2 className='popup-title'>{currentPopupObject.title}</h2>
                 {currentPopupObject.overview}
               </div>
               <div className='popup-information-section'>
-
                 <p className='popup-actors'><span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0', marginRight: '10px' }}>Actors: </span>
                   {currentPopupObject.credits.cast.slice(0, 5).map(person => (
                     <span className='popup-actor'>{person.name}</span>
@@ -199,11 +175,8 @@ const Discover = () => {
                 <span style={{ color: 'rgb(125, 125, 125)', marginLeft: '0' }}>Rating: </span>
                 {currentPopupObject.vote_average}
                 </p>
-
-
               </div>
             </div>
-
             <div className='popup-trailer-section-wrapper'>
               <h2 className='popup-title'>Trailers</h2>
               <div className='popup-trailer-section'>
@@ -217,8 +190,6 @@ const Discover = () => {
 
           </div>}
       </div>
-
-
     </div>
   )
 }

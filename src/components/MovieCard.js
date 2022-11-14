@@ -1,13 +1,7 @@
-import { getMouseEventOptions } from '@testing-library/user-event/dist/utils';
-import React, {useEffect, useState} from 'react'
+import React, { useState} from 'react'
 import './MovieCard.css'
 import noImage from '../img/moviecardPlaceholder.png'
 import noImageTrending from '../img/moviecardPlaceholderTrending.png'
-// import TestModal from './TestModal.js'
-// import Modal, { Button} from 'react-bootstrap/Modal'
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-//const MovieCard = ({ title, year, posterPath}) 
 
 const MovieCard = ({ movie, isTrending }) => {
     const [isHovering, setIsHovering] = useState(false);
@@ -33,8 +27,6 @@ const MovieCard = ({ movie, isTrending }) => {
        height:  (!isHovering &&isTrending) && '20%' ,  
        transition: isHovering && isTrending && '.5s ' ,
        alignItems: isTrending && 'start',
-       
-       
    }
 
     const imgPath=()=>{
@@ -64,7 +56,6 @@ const MovieCard = ({ movie, isTrending }) => {
     function getYear() {
         const date = `${movie.release_date}`
         return date.slice(0,4)
-
     }
 
 
@@ -81,34 +72,6 @@ const MovieCard = ({ movie, isTrending }) => {
                 </div> 
             }    
         </div>
-
-        {/* {<div className='popup'>
-                    <div className='popup-inner'>
-                        <button className='close-btn'></button>
-                    <h1>hej</h1>
-                    </div>
-                    
-                </div>} */}
-
-       
-
-
-        {/* {modalShow &&
-        <div>
-            <Modal show={modalShow}>
-                <Modal.Header>header part</Modal.Header>
-                <Modal.Body>
-                    modal body
-                </Modal.Body>
-                <Modal.Footer>footer</Modal.Footer>
-            </Modal>
-        </div>
-            
-        } */}
-     
-     
-     
-
         </>
     )
 }

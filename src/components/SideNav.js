@@ -1,4 +1,4 @@
-import React, { useState} from 'react' //useState i brackets
+import React, { useState} from 'react' 
 import { } from "react-icons/ai";
 import { NavLink } from 'react-router-dom';
 import { SideNavData } from './SideNavData';
@@ -7,7 +7,6 @@ import './SideNav.css';
 
 function SideNav() {
     const [showNavData, setshowNavData] = useState(false)
-
     const navItemStyle = {
         visibility: showNavData && 'visible'
     }
@@ -21,8 +20,6 @@ function SideNav() {
             <nav style ={navMenuStyle} className='nav-menu'>
             <button onClick={() => setshowNavData(!showNavData)} className='nav-toggle'> <AiOutlineMenu/> </button>
                 <p id='sidebar-title'>Movies</p>
-                
-
                 <ul style={navItemStyle} className='nav-menu-items'>
                     {SideNavData.map((item, index) => {
                         return (
